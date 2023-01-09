@@ -20,8 +20,7 @@ source: https://gist.github.com/tanmaykm/5111225
 			var s; //socket object for connection
 			function doInit() {
 				try {
-					var host = "ws://10.32.21.247:4545/"; //設定socker server的ip:port     192.168.72.15
-					//var host = "ws://192.168.72.15";
+					var host = "ws://localhost:4040/"; //設定socker server的ip:port
 					/*if(window.location.hostname) {
 						host = "ws://" + window.location.hostname + ":4545/";
 					}*/
@@ -75,9 +74,11 @@ source: https://gist.github.com/tanmaykm/5111225
 	圈叉棋<br/>
 	輸入使用的符號<input type='text' value='O' id='sign'>
 	<table border="1" width="500px" height="500px">
-	<tr><td class='cell' id='00'>.</td><td  class='cell' id='10'>.</td><td  class='cell' id='20'>.</td></tr>
-	<tr><td class='cell' id='01'>.</td><td  class='cell' id='11'>.</td><td  class='cell' id='21'>.</td></tr>
-	<tr><td class='cell' id='02'>.</td><td  class='cell' id='12'>.</td><td  class='cell' id='22'>.</td></tr>
+	<tr><td class='cell' id='00'>.</td><td  class='cell' id='10'>.</td><td  class='cell' id='20'>.</td><td  class='cell' id='30'>.</td><td  class='cell' id='40'>.</td></tr>
+	<tr><td class='cell' id='01'>.</td><td  class='cell' id='11'>.</td><td  class='cell' id='21'>.</td><td  class='cell' id='31'>.</td><td  class='cell' id='41'>.</td></tr>
+	<tr><td class='cell' id='02'>.</td><td  class='cell' id='12'>.</td><td  class='cell' id='22'>.</td><td  class='cell' id='32'>.</td><td  class='cell' id='42'>.</td></tr>
+	<tr><td class='cell' id='03'>.</td><td  class='cell' id='13'>.</td><td  class='cell' id='23'>.</td><td  class='cell' id='33'>.</td><td  class='cell' id='43'>.</td></tr>
+	<tr><td class='cell' id='04'>.</td><td  class='cell' id='14'>.</td><td  class='cell' id='24'>.</td><td  class='cell' id='34'>.</td><td  class='cell' id='44'>.</td></tr>
 	</table>
 </body>
 </html>
