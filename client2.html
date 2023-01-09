@@ -56,7 +56,7 @@ source: https://gist.github.com/tanmaykm/5111225
 			
 		function syncMousePosition(x,y) {
 			s.send(x+","+y);
-		}
+		}//傳出收到的訊息
 		
 		function setBoxPosition(topP, leftP) {
 			w=$("#box").parent().width();
@@ -69,7 +69,7 @@ source: https://gist.github.com/tanmaykm/5111225
 			$("#box").css({top: topP, left: leftP, position:'absolute'});			
 		}
 		
-$(function(){
+$(function(){//把這段刪掉-->只能看不可操作
 	$(document).mousemove(function(e){
 		//var offset = $("#box").offset();
 		//leftP= e.pageX - offset.left,

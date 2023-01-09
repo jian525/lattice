@@ -33,11 +33,7 @@ source: https://gist.github.com/tanmaykm/5111225
 
 					s = new WebSocket(host); //建立socket元件
 					//設定幾個主要事件
-					s.onopen = function (e) { 
-						log_msg("connected...");
-						nickname= document.getElementById('user').value;
-						s.send("LOGIN###"+nickname)
-					};
+					s.onopen = function (e) { log_msg("connected..."); };
 					s.onclose = function (e) { log_msg("connection closed."); };
 					s.onerror = function (e) { log_msg("connection error."); };
 					
@@ -52,17 +48,16 @@ source: https://gist.github.com/tanmaykm/5111225
 			}
 			
 			function sendMsg() {
-				
+				nickname= document.getElementById('user').value;
 				inputBox = document.getElementById('message');
-				s.send(inputBox.value);
+				s.send(nickname+"###"+inputBox.value);
 				inputBox.value = "";
 			}
 		</script>		
 	</head>
-<body>
+<body >
+	<button onload="doInit()">click</button>
 		Nickname:<input type="text" id="user">
-<button onclick="doInit()">Connect</button> 
-<hr>
 		Msg:<input type="text" id="message">
 		<button onclick="sendMsg()">Send</button>
 	<br/>
