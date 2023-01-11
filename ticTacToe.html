@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link rel="stylesheet" href="./time.css">
 <!-- 
 source: https://gist.github.com/tanmaykm/5111225 
 -->
@@ -20,7 +21,7 @@ source: https://gist.github.com/tanmaykm/5111225
 			var s; //socket object for connection
 			function doInit() {
 				try {
-					var host = "ws://localhost:4040/"; //設定socker server的ip:port
+					var host = "ws://localhost:4545/"; //設定socker server的ip:port
 					/*if(window.location.hostname) {
 						host = "ws://" + window.location.hostname + ":4545/";
 					}*/
@@ -68,11 +69,38 @@ source: https://gist.github.com/tanmaykm/5111225
 				document.getElementById(id).innerHTML = sign;
 				//ce.value=sign;
 			}
+
+			//var timerVariable = clearInterval(countDownTimer,1000);
+			var totalSeconds = 5;
+
+			function countDownTimer() {
+  				--totalSeconds;
+ 				//var hour = Math.floor(totalSeconds / 3600);
+  				//var minute = Math.floor((totalSeconds - hour * 3600) / 60);
+  				var seconds = totalSeconds;
+  				//if(hour < )
+     				//hour = "0"+hour;
+  				//if(minute = 0)
+    	 			//minute = "0"+minute;
+  				if(seconds < 6 && seconds != 0)
+     				seconds = seconds;
+				else if (seconds == 0){
+					document.write('<h1 align="center" style="color:red ; font-size:50px">Times Up!</h1>')
+					document.write('<img src="picture/cat.jpg" width="700" height="700"  style="vertical-align:middle;margin:0px 50px">');	
+					
+				}
+  				document.getElementById("count_down_timer").innerHTML = seconds;
+				
+			}			
 		</script>		
 	</head>
 <body onload="doInit()">
-	圈叉棋<br/>
-	輸入使用的符號<input type='text' value='O' id='sign'>
+	即時點擊搶地遊戲<br/>
+	輸入符號<input type='text' value='O' id='sign'>
+
+	<div id="count_down_timer">30</div>
+    <button id="start_count_down_timer" onclick="setInterval(countDownTimer,1000)">start</button>
+
 	<table border="1" width="500px" height="500px">
 	<tr><td class='cell' id='00'>.</td><td  class='cell' id='10'>.</td><td  class='cell' id='20'>.</td><td  class='cell' id='30'>.</td><td  class='cell' id='40'>.</td></tr>
 	<tr><td class='cell' id='01'>.</td><td  class='cell' id='11'>.</td><td  class='cell' id='21'>.</td><td  class='cell' id='31'>.</td><td  class='cell' id='41'>.</td></tr>

@@ -1,0 +1,12 @@
+#count_down_timer{
+	font-size: 100px;
+	font-weight: bold;
+	color: crimson;
+}
+#start_count_down_timer{
+	background-color:black;
+	color:white
+}
+h1{
+    color: crimson;
+}

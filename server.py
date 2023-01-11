@@ -9,21 +9,11 @@ clients = []  # to store all connected cleints
 async def handler(websocket, path):
     # print(path) #path is not used currently
     if websocket not in clients:
-        handle = [websocket, 'unknown']
-        clients.append(handle)
-        userName = 'unknown'
-        # clients.append(websocket)  # append new cleint to the array
+        clients.append(websocket)  # append new cleint to the array
 
-    else:
-        userName = getClientName(websocket)
     async for message in websocket:
         print(message, 'received from client')  # print to console
-        msg = message.split("###")
-        if msg[0] == 'LOGIN':
-            setClientName(websocket, msg[1])  # 當作特別的事
-            print("set client name ", msg[1])
-        else:
-            brocast(message)  # send message to all clents
+        await brocast(message)  # send message to all clents
 
 
 def getClientName(obj):
@@ -59,6 +49,6 @@ asyncio.set_event_loop(loop)  # set the event loop to asyncio
 
 loop.run_until_complete(
     # setup the websocket service and handler
-    websockets.serve(handler, 'localhost', 4040)
+    websockets.serve(handler, 'localhost', 4545)
 )  # hook to localhost:4545
 loop.run_forever()  # keep it running
