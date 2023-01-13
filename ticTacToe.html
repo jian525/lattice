@@ -18,10 +18,15 @@ source: https://gist.github.com/tanmaykm/5111225
 			function log_msg(msg) {
 				console.log( msg);
 			}
+			var challenger=[[null,null ,null ,null ,null ],
+							[null,null ,null ,null ,null ],
+							[null,null ,null ,null ,null ],
+							[null,null ,null ,null ,null ],
+							[null,null ,null ,null ,null ]];
 			var s; //socket object for connection
 			function doInit() {
 				try {
-					var host = "ws://localhost:4545/"; //設定socker server的ip:port
+					var host = "ws://localhost:4040/"; //設定socker server的ip:port
 					/*if(window.location.hostname) {
 						host = "ws://" + window.location.hostname + ":4545/";
 					}*/
@@ -29,6 +34,7 @@ source: https://gist.github.com/tanmaykm/5111225
 					s = new WebSocket(host); //建立socket元件
 					//設定幾個主要事件
 					s.onopen = function (e) { log_msg("connected..."); };
+
 					s.onclose = function (e) { log_msg("connection closed."); };
 					s.onerror = function (e) { log_msg("connection error."); };
 					
@@ -40,8 +46,9 @@ source: https://gist.github.com/tanmaykm/5111225
 						strs = e.data.split(',');
 						//解讀各段訊息的內容
 						cellID=strs[0]; //個子的ID
-						cellSign=strs[1]; //使用的符號
-						setCell(cellID,cellSign) //改格子的符號
+						cellSign=strs[1]; //使用的符號 myValue
+						cellChallenge=strs[2];
+						setCell(cellID,cellSign,cellChallenge) //改格子的符號
 					};
 				} catch (ex) {
 					log_msg("connection exception:" + ex);
@@ -50,26 +57,56 @@ source: https://gist.github.com/tanmaykm/5111225
 				//取得class是 "cell" 的元件
 				const cells = document.querySelectorAll(".cell");
 				//逐一設定onclick事件
-				cells.forEach(function(el) {
+				cells.forEach(function(el) {	
 					el.onclick=function() { 
 						id=this.id;
 						//console.log(id);
+						
+						var myValue = parseInt(document.getElementById(id).innerHTML);//lattices' place	
+						//challenger[id[0]][id[1]]=document.getElementById('user').value;	
 						if(this.innerHTML=='.') { //若格子尚未被選
 							//取得使用的符號
-							let mySign = document.getElementById('sign').value;
+							//let myValue = document.getElementById('sign').value;//格子的數字
+							//var myValue = parseInt(document.getElementById(id).innerHTML);
+							myValue=1;
 							//把格子id跟使用的符號傳給socket server
-							s.send(id+","+mySign);
+							//s.send(id+","+myValue);
+							challenger[id[0]][id[1]]=document.getElementById('user').value;
 						}
-					}
+						else if(this.innerHTML!='.'){
+							//var myValue = parseInt(document.getElementById(id).innerHTML);
+							//myValue++;
+							//get user id then store
+							if (challenger[id[0]][id[1]]!=document.getElementById('user').value){
+								myValue--;
+								if(myValue==0){
+									challenger[id[0]][id[1]]=null;
+									myValue='.';
+								}
+							}
+							else if(challenger[id[0]][id[1]]==document.getElementById('user').value){
+								myValue++;
+							}
+					    }
+						//challenger[id[0]][id[1]]=document.getElementById('user').value;
+						s.send(id+","+myValue+","+challenger[id[0]][id[1]]);
+				    }
 				});
 			}
 			
 			//設定格子的符號
-			function setCell(id,sign) {
+			function setCell(id,sign,challenge) {//color
 				document.getElementById(id).innerHTML = sign;
+				challenger[id[0]][id[1]]=challenge;
+				var myValue = document.getElementById(id).innerHTML;
+				if(myValue=='.')
+					document.getElementById(id).style.backgroundColor='white';
+				else if(challenger[id[0]][id[1]]!=document.getElementById('user').value)
+					document.getElementById(id).style.backgroundColor='purple';
+				else if(challenger[id[0]][id[1]]==document.getElementById('user').value)
+					document.getElementById(id).style.backgroundColor='yellow';
 				//ce.value=sign;
 			}
-
 			//var timerVariable = clearInterval(countDownTimer,1000);
 			var totalSeconds = 5;
 
@@ -92,11 +129,11 @@ source: https://gist.github.com/tanmaykm/5111225
   				document.getElementById("count_down_timer").innerHTML = seconds;
 				
 			}			
-		</script>		
+		 </script>		
 	</head>
 <body onload="doInit()">
 	即時點擊搶地遊戲<br/>
-	輸入符號<input type='text' value='O' id='sign'>
+	輸入挑戰者名稱:<input type='text' value='jain' id='user'>
 
 	<div id="count_down_timer">30</div>
     <button id="start_count_down_timer" onclick="setInterval(countDownTimer,1000)">start</button>
