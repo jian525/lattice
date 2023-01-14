@@ -26,7 +26,7 @@ source: https://gist.github.com/tanmaykm/5111225
 			var s; //socket object for connection
 			function doInit() {
 				try {
-					var host = "ws://localhost:4040/"; //設定socker server的ip:port
+					var host = "ws://192.168.1.105:4040/"; //設定socker server的ip:port
 					/*if(window.location.hostname) {
 						host = "ws://" + window.location.hostname + ":4545/";
 					}*/
@@ -117,7 +117,7 @@ source: https://gist.github.com/tanmaykm/5111225
 				//ce.value=sign;
 			}
 			//var timerVariable = clearInterval(countDownTimer,1000);
-			var totalSeconds = 31;
+			var totalSeconds = 30;
 
 			function countDownTimer() {
 				//s = new WebSocket(host);
@@ -142,7 +142,7 @@ source: https://gist.github.com/tanmaykm/5111225
   				//if(minute = 0)
     	 			//minute = "0"+minute;align="center" style="vertical-align:middle;margin:0px 400px"
 				var name=document.getElementById('user').value
-  				if(seconds < 32 && seconds != 0)
+  				if(seconds < 31 && seconds != 0)
      				seconds = seconds;
 				else if (seconds == 0){
 					document.write('<h1  align="center"  style="color:red ; font-size:50px";>Times Up!</h1>')
@@ -151,14 +151,14 @@ source: https://gist.github.com/tanmaykm/5111225
 				    for(i=0;i<5;i++){//read user name in table
 						for(j=0;j<5;j++){
 							if(challenger[i][j]==name){
-								console.log(user1);
+								//console.log(user1);
 								user1++;
 							}
 							else if(challenger[i][j]!=null)
 								user2++;
 						}
 					}
-					console.log(user1);
+					//console.log(user1);
 					document.write('<h3 style="color:green ; font-size:50px">my point: '+user1+'</h3>')
 					document.write('<h3 style="color:green ; font-size:50px">opponent point: '+user2+'</h3>')
 					
